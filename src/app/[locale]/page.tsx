@@ -2,10 +2,12 @@
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
+import { useTranslation } from 'next-i18next'
 
 export default function HomePage() {
   const [name, setName] = useState('')
   const router = useRouter()
+  const { t } = useTranslation('common')
 
   const createBoard = async () => {
     const { data, error } = await supabase
@@ -21,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl">Створи свою анонімну дошку</h1>
+      <h1 className="text-2xl">Create your anonymous board</h1>
       <input
         className="border p-2"
         value={name}

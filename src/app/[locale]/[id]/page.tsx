@@ -3,19 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
-
-type Comment = {
-  id: string
-  text: string
-  created_at: string
-}
+import { Comment } from '@/types/Comment.type'
 
 export default function BoardPage() {
-  const { id } = useParams() // board id з URL
+  const { id } = useParams() 
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState('')
 
-  // Завантаження коментарів
   const fetchComments = async () => {
     const { data, error } = await supabase
       .from('comments')
@@ -26,12 +20,10 @@ export default function BoardPage() {
     if (data) setComments(data)
   }
 
-  // Виклик при завантаженні
   useEffect(() => {
     if (id) fetchComments()
   }, [id])
 
-  // Додати новий коментар
   const addComment = async () => {
     if (!newComment.trim()) return
     const { error } = await supabase
@@ -48,7 +40,6 @@ export default function BoardPage() {
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Анонімна дошка</h1>
 
-      {/* Форма для нового коментаря */}
       <div className="flex gap-2 mb-6">
         <input
           className="flex-1 border p-2 rounded"
@@ -64,7 +55,6 @@ export default function BoardPage() {
         </button>
       </div>
 
-      {/* Список коментарів */}
       <div className="space-y-3">
         {comments.length === 0 ? (
           <p className="text-gray-500">Ще немає коментарів 😶</p>

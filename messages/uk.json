@@ -1,0 +1,13 @@
+{
+    "shared":{
+        "change_language": "Change Language"
+    },
+    "pages": {
+        "home": {
+            "title": "Create your anonymous board",
+            "input_placeholder": "Enter board name",
+            "username_placeholder": "Enter your username",
+            "create_button": "Create"
+        }
+    }
+}
