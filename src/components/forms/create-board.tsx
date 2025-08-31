@@ -1,13 +1,13 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl';
 
 import { Button } from '../ui/button';
-import { ArrowDownUp, Copy, ExternalLinkIcon, Loader2, Plus, Share2 } from 'lucide-react';
+import { ArrowDownUp, Check, Copy, ExternalLinkIcon, Loader2, Plus, Share2 } from 'lucide-react';
 
 import {
   Card,
@@ -18,12 +18,17 @@ import {
 } from "@/components/ui/card"
 import { Input } from '../ui/input';
 import { Separator } from '../ui/separator';
+import { useAlert } from '../providers/provider';
+import Alert from '../alerts';
 
 function CreateBoard() {
+    const { showAlert } = useAlert()
     const [name, setName] = useState('')
     const [url, setUrl] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [copied, setCopied] = useState(false) 
+    const inputRef = useRef<HTMLInputElement>(null)
     const router = useRouter()
     const t  = useTranslations('pages.home')
 
@@ -52,6 +57,24 @@ function CreateBoard() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         createBoard();
+    };
+
+    useEffect(() => {
+        if (url && inputRef.current) {
+            inputRef.current.select();
+        }
+    }, [url]);
+
+    const handleCopy = async () => {
+        if (!url) return;
+        try {
+            await navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000); 
+            showAlert(<Alert.CopyError />);
+        } catch (err) {
+            setErrorMessage('Failed to copy: '+err);
+        }
     };
 
     return (
@@ -87,7 +110,9 @@ function CreateBoard() {
                         />
 
                         <div className='flex gap-2'>
-                            <Button variant="outline" disabled={!url}><Copy/></Button>
+                            <Button variant="outline" disabled={!url} onClick={handleCopy}>
+                                {copied ? <Check/> : <Copy/>}
+                            </Button>
                             <Button variant="outline" disabled={!url}><Share2/></Button>
                             <Button variant="default" className='flex-1' disabled={!url}><ExternalLinkIcon/> {t('open_button')}</Button>
                         </div>
