@@ -20,6 +20,7 @@ import { Input } from '../ui/input';
 import { Separator } from '../ui/separator';
 import { useAlert } from '../providers/provider';
 import Alert from '../alerts';
+import { ShareButton } from '../buttons/share-button';
 
 function CreateBoard() {
     const { showAlert } = useAlert()
@@ -71,11 +72,17 @@ function CreateBoard() {
             await navigator.clipboard.writeText(url);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000); 
-            showAlert(<Alert.CopyError />);
+            showAlert(<Alert.CopySuccess />);
         } catch (err) {
-            setErrorMessage('Failed to copy: '+err);
+            showAlert(<Alert.CopyError />);
         }
     };
+
+    const handleOpenURL = () => {
+        if (url) {
+            router.push(url)
+        }
+    }
 
     return (
         <Card className="w-full max-w-sm">
@@ -113,8 +120,9 @@ function CreateBoard() {
                             <Button variant="outline" disabled={!url} onClick={handleCopy}>
                                 {copied ? <Check/> : <Copy/>}
                             </Button>
-                            <Button variant="outline" disabled={!url}><Share2/></Button>
-                            <Button variant="default" className='flex-1' disabled={!url}><ExternalLinkIcon/> {t('open_button')}</Button>
+                            {/* <Button variant="outline" disabled={!url}><Share2/></Button> */}
+                            <ShareButton url={url} />
+                            <Button variant="default" className='flex-1' disabled={!url} onClick={handleOpenURL}><ExternalLinkIcon/> {t('open_button')}</Button>
                         </div>
                     </div>
                 </CardContent>
