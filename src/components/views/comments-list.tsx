@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { HeartCrack } from "lucide-react";
 
 function CommentsList() {
   const params = useParams();
@@ -29,7 +30,11 @@ function CommentsList() {
   return (
     <div className="space-y-4">
       {comments.length === 0 ? (
-        <p className="text-gray-500">Ще немає коментарів 😶</p>
+        // <p className="text-gray-500">Ще немає коментарів 😶</p>
+        <div>
+          <HeartCrack className="mx-auto mb-2 text-gray-400" />
+          <p className="text-center text-gray-500">No comments yet</p>
+        </div>
       ) : (
         comments.map((c) => (
           <div key={c.id} className="border p-3 rounded bg-gray-50">
