@@ -18,7 +18,7 @@ function AddComment() {
     const handleAdd = async (text: string) => {
       if (!id) return;
       await supabase.from("comments").insert({ text, board_id: id });
-      await fetchComments(id); 
+      await fetchComments(id, 1, 10); 
       setNewComment('');
       showAlert(<Alert.AddCommentSuccess/>);
     };
