@@ -28,6 +28,7 @@
     },
     "forms":{
         "add_comment":{
+            "title": "Describe board owner in few words",
             "input_placeholder": "Write an anonymous comment...",
             "submit_button": "Add"
         },
@@ -37,5 +38,8 @@
             "url_placeholder": "Board URL will appear here",
             "open_button": "Open URL"
         }
+    },
+    "views":{
+        "shown": "Showing {count} of {total}"
     }
 }

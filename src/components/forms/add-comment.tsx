@@ -8,6 +8,7 @@ import { useAlert } from '../providers/provider';
 import Alert from '../alerts';
 import { useComments } from '@/context/comments-context';
 import { useTranslations } from 'next-intl';
+import { Textarea } from '../ui/textarea';
 
 function AddComment() {
     const params = useParams();
@@ -26,16 +27,23 @@ function AddComment() {
     };
 
     return (
-      <div className="flex gap-2 mb-6">
-        <Input
+      <div className="flex flex-col gap-2 mb-6">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          {t('title')}
+          
+        </h3>
+        <Textarea 
           placeholder={t('input_placeholder')}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-        ></Input>
+        ></Textarea>
         <Button
           onClick={()=>handleAdd(newComment)}
+          disabled={newComment.trim().length === 0}
+          className="self-end"
         >
-          <Pen/> {t('submit_button')}
+          <Pen/> 
+          {/* {t('submit_button')} */}
         </Button>
       </div>
     );

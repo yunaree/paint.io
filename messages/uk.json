@@ -28,6 +28,7 @@
   },
   "forms": {
     "add_comment": {
+      "title": "Хто такий власник дошки 0_0",
       "input_placeholder": "Напишіть анонімний коментар...",
       "submit_button": "Додати"
     },
@@ -37,5 +38,8 @@
       "url_placeholder": "URL дошки з’явиться тут",
       "open_button": "Відкрити URL"
     }
+  },
+  "views":{
+      "shown": "Показано {count} з {total}"
   }
 }

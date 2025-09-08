@@ -12,12 +12,14 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { HeartCrack } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function CommentsList() {
   const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id ?? "";
-  const { comments, fetchComments, page, setPage, hasMore } = useComments();
+  const { comments, fetchComments, page, setPage, hasMore, totalCount } = useComments();
   const [previous, setPrevious] = React.useState(false);
+  const t  = useTranslations('views')
 
   useEffect(() => {
     if (id) fetchComments(id, page, 10); 
@@ -29,6 +31,7 @@ function CommentsList() {
 
   return (
     <div className="space-y-4">
+      <p className="text-muted-foreground text-sm">{t("shown", { count: comments.length, total: totalCount })}</p>
       {comments.length === 0 ? (
         // <p className="text-gray-500">Ще немає коментарів 😶</p>
         <div>
@@ -37,11 +40,16 @@ function CommentsList() {
         </div>
       ) : (
         comments.map((c) => (
-          <div key={c.id} className="border p-3 rounded bg-gray-50">
-            <p>{c.text}</p>
-            <span className="text-xs text-gray-400">
-              {new Date(c.created_at).toLocaleString()}
-            </span>
+          <div
+            key={c.id}
+            className="rounded-xl border bg-white p-4 shadow-sm hover:shadow transition"
+          >
+            <p className="text-gray-800 text-sm">{c.text}</p>
+            <div className="flex justify-end">
+              <span className="text-xs text-gray-400">
+                {new Date(c.created_at).toLocaleString()}
+              </span>
+            </div>
           </div>
         ))
       )}
