@@ -3,16 +3,30 @@ import '../../styles/globals.css';
 import AlertProvider from '@/components/providers/provider.client';
 import { CommentsProvider } from '@/context/comments-context';
 import Header from '@/components/shared/header';
+import { ReactNode } from 'react';
+import { notFound } from 'next/navigation';
  
-type Props = {
-  children: React.ReactNode;
-};
- 
-export default async function RootLayout({children}: Props) {
+export default async function LocaleLayout({
+  children,
+  params
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  let messages;
+  
+  try {
+    messages = (await import(`../../../messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound(); // якщо нема такої мови — 404
+  }
+  
   return (
-    <html>
+    <html lang={locale}>
       <body>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <AlertProvider>
             <CommentsProvider>
               <Header />

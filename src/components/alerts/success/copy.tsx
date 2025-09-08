@@ -1,14 +1,17 @@
 import React from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function CopySuccessAlert() {
+    const t  = useTranslations('alerts.copy_success')
+    
     return (
         <Alert variant="default">
             <CheckCircle2Icon />
-            <AlertTitle>Success! Your link have been copied</AlertTitle>
+            <AlertTitle>{t("title")}</AlertTitle>
             <AlertDescription>
-                Now you can share it with your friends and start collaborating!
+                {t("description")}
             </AlertDescription>
         </Alert>
     );

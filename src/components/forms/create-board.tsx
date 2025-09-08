@@ -31,7 +31,7 @@ function CreateBoard() {
     const [copied, setCopied] = useState(false) 
     const inputRef = useRef<HTMLInputElement>(null)
     const router = useRouter()
-    const t  = useTranslations('pages.home')
+    const t  = useTranslations('forms.create_board')
 
     const createBoard = async () => {
         setIsLoading(true)

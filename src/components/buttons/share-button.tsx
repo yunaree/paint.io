@@ -3,9 +3,11 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function ShareButton({ url }: { url: string }) {
   const [open, setOpen] = useState(false)
+  const t  = useTranslations('buttons.share_button')
 
   const handleShare = async () => {
     if (!url) return
@@ -13,8 +15,8 @@ export function ShareButton({ url }: { url: string }) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "My board",
-          text: "I want to share my board with you 📌 Take a look!",
+          title: t("share_options_title"),
+          text: t("share_options_text"),
           url: url,
         })
       } catch {

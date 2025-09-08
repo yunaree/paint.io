@@ -1,9 +1,37 @@
 {
     "shared":{
-        "change_language": "Change Language"
+        "change_language": "Language"
     },
-    "pages": {
-        "home": {
+    "alerts":{
+        "copy_error":{
+            "title": "Copy Error",
+            "description": "There was an error copying the link. Please try again."
+        },
+        "share_error":{
+            "title": "Share Error",
+            "description": "There was an error sharing the link. Please try again."
+        },
+        "add_comment_success":{
+            "title": "Your comment now on board",
+            "description": "Thank you for your feedback!"
+        },
+        "copy_success":{
+            "title": "Success! Your link have been copied",
+            "description": "Now you can share it with your friends and start collaborating!"
+        }
+    },
+    "buttons":{
+        "share_button":{
+            "share_options_title": "My board",
+            "share_options_text": "I want to share my board with you 📌 Take a look!"
+        }
+    },
+    "forms":{
+        "add_comment":{
+            "input_placeholder": "Write an anonymous comment...",
+            "submit_button": "Add"
+        },
+        "create_board":{
             "title": "Create anonymous board",
             "input_placeholder": "Enter your name (optional)",
             "url_placeholder": "Board URL will appear here",

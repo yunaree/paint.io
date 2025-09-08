@@ -1,14 +1,17 @@
 import React from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function ShareErrorAlert() {
+    const t  = useTranslations('alerts.share_error')
+    
     return (
         <Alert variant="destructive">
             <AlertCircleIcon />
-            <AlertTitle>Share error</AlertTitle>
+            <AlertTitle>{t("title")}</AlertTitle>
             <AlertDescription>
-                There was an error sharing the link. Please try again.
+                {t("description")}
             </AlertDescription>
         </Alert>
     );

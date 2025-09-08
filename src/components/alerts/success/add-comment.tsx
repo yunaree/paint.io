@@ -1,14 +1,17 @@
 import React from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function AddCommentSuccessAlert() {
+    const t  = useTranslations('alerts.add_comment_success')
+    
     return (
         <Alert variant="default">
             <CheckCircle2Icon />
-            <AlertTitle>Your comment now on board</AlertTitle>
+            <AlertTitle>{t("title")}</AlertTitle>
             <AlertDescription>
-                Thank you for your feedback!
+                {t("description")}
             </AlertDescription>
         </Alert>
     );

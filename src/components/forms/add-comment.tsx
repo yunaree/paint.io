@@ -7,6 +7,7 @@ import { Pen } from 'lucide-react';
 import { useAlert } from '../providers/provider';
 import Alert from '../alerts';
 import { useComments } from '@/context/comments-context';
+import { useTranslations } from 'next-intl';
 
 function AddComment() {
     const params = useParams();
@@ -14,6 +15,7 @@ function AddComment() {
     const { showAlert } = useAlert()
     const [newComment, setNewComment] = useState('')
     const { fetchComments } = useComments();
+    const t  = useTranslations('forms.add_comment')
 
     const handleAdd = async (text: string) => {
       if (!id) return;
@@ -26,14 +28,14 @@ function AddComment() {
     return (
       <div className="flex gap-2 mb-6">
         <Input
-          placeholder="Write an anonymous comment..."
+          placeholder={t('input_placeholder')}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         ></Input>
         <Button
           onClick={()=>handleAdd(newComment)}
         >
-          <Pen/> Add
+          <Pen/> {t('submit_button')}
         </Button>
       </div>
     );
